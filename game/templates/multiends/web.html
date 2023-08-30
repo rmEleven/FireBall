@@ -1,0 +1,21 @@
+{% load static %}
+
+<head>
+    <!-- jquery库 -->
+    <link rel="stylesheet" href="https://cdn.acwing.com/static/jquery-ui-dist/jquery-ui.min.css">
+    <script src="https://cdn.acwing.com/static/jquery/js/jquery-3.3.1.min.js"></script>
+
+    <!-- 自定义的css和js -->
+    <link rel="stylesheet" href="{% static 'css/game.css' %}">
+    <script src="{% static 'js/dist/game.js' %}"></script>
+</head>
+
+<body style="margin: 0;">
+    <div id="game_4215"></div>
+    <script>
+        $(document).ready(function() {
+            let game = new Game(game_4215);
+        });
+        console.log("Hello World");
+    </script>
+</body>
