@@ -18,6 +18,6 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('', include('game.urls')),  # 默认使用 game 的 urls
+    path('', include('game.urls.index')),  # 默认使用 game 的 urls
     path('admin/', admin.site.urls),
 ]
