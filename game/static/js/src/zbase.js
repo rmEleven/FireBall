@@ -6,5 +6,12 @@ class Game {
         this.$game = $('#' + id);  // 找到id对应的前端div
 
         this.menu = new GameMenu(this);  // 创建menu对象
+        this.playground = new GamePlayground(this)  // 创建playground对象
+
+        this.start();
+    }
+
+    start() {
+        ;
     }
 }
