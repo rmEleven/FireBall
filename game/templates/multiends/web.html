@@ -7,12 +7,12 @@
 
     <!-- 自定义的css和js -->
     <link rel="stylesheet" href="{% static 'css/game.css' %}">
-    <script src="{% static 'js/dist/game.js' %}"></script>
 </head>
 
 <body style="margin: 0;">
     <div id="game_4215"></div>
-    <script>
+    <script type="module">  // 模块化
+        import {Game} from "{% static 'js/dist/game.js' %}";  // 作为局部变量引入
         $(document).ready(function() {
             let game = new Game("game_4215");
         });
