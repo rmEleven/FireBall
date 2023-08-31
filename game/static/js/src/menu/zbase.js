@@ -19,6 +19,7 @@ class GameMenu {
                 </div>
             </div>
         `);
+        this.hide();  // 暂时隐藏菜单界面
         this.root.$game.append(this.$menu);  // 把menu前端添加到game前端
 
         this.$single_mode = this.$menu.find('.game-menu-field-item-single-mode');  // 找到single-mode按钮
@@ -36,8 +37,8 @@ class GameMenu {
         let outer = this;
         this.$single_mode.click(function () {
             console.log("single-mode clicked");
-            outer.hide();
-            outer.root.playground.show();
+            outer.hide();                  // 隐藏菜单界面
+            outer.root.playground.show();  // 显示游戏界面
         });
         this.$multi_mode.click(function () {
             console.log("multi-mode clicked");
