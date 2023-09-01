@@ -21,6 +21,15 @@ class GamePlayground {
         this.players = [];
         this.players.push(new Player(this, this.width / 2, this.height / 2, this.height * 0.05, "rgb(83,131,236)", this.height * 0.15, true));
 
+        let robot_num = 5;  // 机器人数量
+        let robot_color = ["lightcoral", "lightgray", "lightgreen", "lightsalmon", "lightyellow"];  // 机器人颜色
+        for (let i = 0; i < robot_num; i++) {
+            let x = Math.random() * this.width;   // 随机目标位置
+            let y = Math.random() * this.height;  // 随机目标位置
+            let color_index = Math.floor(Math.random() * robot_color.length);  // 随机颜色下标
+            this.players.push(new Player(this, x, y, this.height * 0.05, robot_color[color_index], this.height * 0.15, false));  // 创建机器人
+        }
+
         this.start();
     }
 
