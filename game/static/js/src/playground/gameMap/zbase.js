@@ -23,7 +23,7 @@ class GameMap extends GameObject {  // 继承GameObject类
     }
 
     render() {  // 渲染地图
-        this.ctx.fillStyle = "rgba(219,238,252,0.5)";  // 设置颜色
+        this.ctx.fillStyle = "rgba(0,0,0,0.2)";  // 设置颜色
         this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);  // 渲染矩形
     }
 }

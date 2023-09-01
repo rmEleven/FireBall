@@ -9,16 +9,18 @@ class Player extends GameObject {
         this.x = x;  // x坐标
         this.y = y;  // y坐标
 
-        this.radius = radius;  // 球的半径
-        this.color = color;    // 球的颜色
+        this.radius = radius;   // 球的半径
+        this.color = color;     // 球的颜色
 
-        this.speed = speed;    // 移动速度
-        this.move_length = 0;  // 移动距离
-        this.vx = 0;           // x轴速度方向
-        this.vy = 0;           // y轴速度方向
+        this.speed = speed;     // 移动速度
+        this.move_length = 0;   // 移动距离
+        this.vx = 0;            // x轴速度方向
+        this.vy = 0;            // y轴速度方向
 
-        this.is_me = is_me;    // 是否是玩家本人
-        this.eps = 0.1;        // 小于误差视作0
+        this.cur_skill = null;  // 选择的技能
+
+        this.is_me = is_me;     // 是否是玩家本人
+        this.eps = 0.1;         // 小于误差视作0
     }
 
     start() {
@@ -37,6 +39,19 @@ class Player extends GameObject {
         this.playground.gameMap.$canvas.mousedown(function (e) {
             if (e.which === 3) {  // 点击鼠标右键
                 outer.move_to(e.clientX, e.clientY);  // 移动到点击的位置
+            } else if (e.which === 1) {  // 点击鼠标左键
+                if (outer.cur_skill === "fireball") {  // 当前技能是火球
+                    outer.shoot_fireball(e.clientX, e.clientY);  // 发射火球
+                }
+
+                outer.cur_skill = null;  // 清空技能选择
+            }
+        });
+
+        $(window).keydown(function (e) {
+            if (e.which === 81) {  // q
+                outer.cur_skill = "fireball";
+                return false;
             }
         });
     }
@@ -48,11 +63,27 @@ class Player extends GameObject {
     }
 
     move_to(tx, ty) {
-        console.log("move to", tx, ty);
         this.move_length = this.get_dist(this.x, this.y, tx, ty);  // 计算移动距离
         let angle = Math.atan2(ty - this.y, tx - this.x);  // 计算移动角度
         this.vx = Math.cos(angle);  // 计算x轴移动方向
         this.vy = Math.sin(angle);  // 计算y轴移动方向
+    }
+
+    shoot_fireball(tx, ty) {
+        let x = this.x;
+        let y = this.y;
+
+        let radius = this.playground.height * 0.01;
+        let color = "orange";
+
+        let speed = this.playground.height * 0.5;
+        let move_length = this.playground.height * 1.0;
+
+        let angle = Math.atan2(ty - y, tx - x);
+        let vx = Math.cos(angle);
+        let vy = Math.sin(angle);
+
+        new FireBall(this.playground, this, x, y, radius, color, speed, move_length, vx, vy);
     }
 
     update() {
