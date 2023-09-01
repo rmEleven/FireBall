@@ -1,6 +1,6 @@
 class FireBall extends GameObject {
     constructor(playground, player, x, y, radius, color, speed, move_length, vx, vy, damage) {
-        console.log("FireBall Created");  // 火球创建的提示信息
+        // console.log("FireBall Created");  // 火球创建的提示信息
 
         super();  // 调用父类构造函数，加入全局游戏对象数组
         this.playground = playground;  // 记录GamePlayground对象

@@ -1,6 +1,6 @@
 class Player extends GameObject {
     constructor(playground, x, y, radius, color, speed, is_me) {
-        console.log("Player Created");  // 游戏玩家创建的提示信息
+        // console.log("Player Created");  // 游戏玩家创建的提示信息
 
         super();  // 调用父类构造函数，加入全局游戏对象数组
         this.playground = playground;  // 记录GamePlayground对象
@@ -66,6 +66,11 @@ class Player extends GameObject {
         });
     }
 
+    remove_listening_events() {
+        this.playground.gameMap.$canvas.off("mousedown"); // 取消mousedown事件监听
+        $(window).off("keydown"); // 取消keydown事件监听
+    }
+
     get_dist(x1, y1, x2, y2) {  // 计算两点间距离
         let dx = x1 - x2;
         let dy = y1 - y2;
@@ -99,14 +104,36 @@ class Player extends GameObject {
     }
 
     is_attacked(angle, damage) {  // 玩家被攻击到
+        let particle_num = 10 + Math.floor(Math.random() * 10);  // 随机粒子数量
+        for (let i = 0; i < particle_num; i++) {
+            let x = this.x;
+            let y = this.y;
+
+            let radius = this.radius * Math.random() * 0.2;
+            let color = this.color;
+
+            let speed = this.speed * 5;
+            let angle = 2 * Math.PI * Math.random();
+            let vx = Math.cos(angle);
+            let vy = Math.sin(angle);
+            let move_length = this.radius * 5;
+
+            new Particle(this.playground, x, y, radius, color, speed, vx, vy, move_length);  // 创建粒子
+        }
+
         this.radius -= damage;  // 玩家受到伤害
+
         if (this.radius < this.eps) {  // 玩家被击杀
+            if (this.is_me) {  // 玩家本人被击杀
+                this.remove_listening_events();  // 取消监听事件
+            }
             this.destroy();  // 销毁玩家对象
             return false;
         } else {  // 玩家被击杀 受到冲击移动
             this.d_speed = damage * 60;   // 冲击移动速度
             this.d_vx = Math.cos(angle);  // 冲击x轴速度方向
             this.d_vy = Math.sin(angle);  // 冲击y轴速度方向
+
             this.speed *= 1.4;  // 速度提升
         }
     }
@@ -118,6 +145,17 @@ class Player extends GameObject {
             this.x += this.d_vx * moved;  // 移动
             this.y += this.d_vy * moved;  // 移动
             this.d_speed *= this.friction;  // 移速减小
+        }
+
+        if (!this.is_me && Math.random() < 1 / 200) {  // 机器人发射火球
+            let target = this;  // 设置随机目标
+            while (target === this) {  // 随机目标是自己就继续寻找
+                let target_index = Math.floor(Math.random() * this.playground.players.length);  // 随机目标下标
+                target = this.playground.players[target_index];  // 更新随机目标
+            }
+            let tx = target.x + target.speed * target.vx * this.timedelta / 1000 * 0.3;
+            let ty = target.y + target.speed * target.vy * this.timedelta / 1000 * 0.3;
+            this.shoot_fireball(tx, ty);  // 发射火球
         }
 
         if (this.move_length < this.eps) {  // 移动到目标位置
@@ -145,5 +183,14 @@ class Player extends GameObject {
         this.ctx.beginPath();
         this.ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);  // 渲染圆形
         this.ctx.fill();  // 填充颜色
+    }
+
+    on_deatroy() {  // 玩家被击杀后 从玩家数组中删除
+        for (let i = 0; i < this.playground.players.length; i++) {
+            if (this.playground.players[i] === this) {
+                this.playground.players.splice(i, 1);  // 从下标为i的元素开始删除1个
+                break;
+            }
+        }
     }
 }
