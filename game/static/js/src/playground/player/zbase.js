@@ -17,6 +17,12 @@ class Player extends GameObject {
         this.vx = 0;            // x轴速度方向
         this.vy = 0;            // y轴速度方向
 
+        this.d_speed = 0;        // 冲击移动速度
+        this.d_vx = 0;           // 冲击x轴速度方向
+        this.d_vy = 0;           // 冲击y轴速度方向
+
+        this.friction = 0.9;     // 摩擦力
+
         this.cur_skill = null;  // 选择的技能
 
         this.is_me = is_me;     // 是否是玩家本人
@@ -26,6 +32,10 @@ class Player extends GameObject {
     start() {
         if (this.is_me) {  // 是玩家本人
             this.add_listening_events();  // 添加鼠标监听事件
+        } else {  // 是机器人
+            let tx = Math.random() * this.playground.width;   // 随机目标位置
+            let ty = Math.random() * this.playground.height;  // 随机目标位置
+            this.move_to(tx, ty);
         }
     }
 
@@ -69,7 +79,7 @@ class Player extends GameObject {
         this.vy = Math.sin(angle);  // 计算y轴移动方向
     }
 
-    shoot_fireball(tx, ty) {
+    shoot_fireball(tx, ty) {  // 发射火球
         let x = this.x;
         let y = this.y;
 
@@ -83,14 +93,42 @@ class Player extends GameObject {
         let vx = Math.cos(angle);
         let vy = Math.sin(angle);
 
-        new FireBall(this.playground, this, x, y, radius, color, speed, move_length, vx, vy);
+        let damage = this.playground.height * 0.01
+
+        new FireBall(this.playground, this, x, y, radius, color, speed, move_length, vx, vy, damage);  // 创建火球对象
+    }
+
+    is_attacked(angle, damage) {  // 玩家被攻击到
+        this.radius -= damage;  // 玩家受到伤害
+        if (this.radius < this.eps) {  // 玩家被击杀
+            this.destroy();  // 销毁玩家对象
+            return false;
+        } else {  // 玩家被击杀 受到冲击移动
+            this.d_speed = damage * 60;   // 冲击移动速度
+            this.d_vx = Math.cos(angle);  // 冲击x轴速度方向
+            this.d_vy = Math.sin(angle);  // 冲击y轴速度方向
+            this.speed *= 1.4;  // 速度提升
+        }
     }
 
     update() {
+        if (this.d_speed > 10) {  // 受到火球冲击
+            this.vx = this.vy = this.move_length = 0;  // 清空原先的移动
+            let moved = this.d_speed * this.timedelta / 1000;
+            this.x += this.d_vx * moved;  // 移动
+            this.y += this.d_vy * moved;  // 移动
+            this.d_speed *= this.friction;  // 移速减小
+        }
+
         if (this.move_length < this.eps) {  // 移动到目标位置
             this.move_length = 0;
             this.vx = 0;
             this.vy = 0;
+            if (!this.is_me) {  // 是机器人
+                let tx = Math.random() * this.playground.width;   // 随机目标位置
+                let ty = Math.random() * this.playground.height;  // 随机目标位置
+                this.move_to(tx, ty);  // 移动到随机位置
+            }
         } else {  // 未移动到目标位置
             let moved = Math.min(this.move_length, this.speed * this.timedelta / 1000);  // 当前帧移动的距离
             this.x += this.vx * moved;  // 移动
