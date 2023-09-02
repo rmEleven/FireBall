@@ -10,4 +10,4 @@ find $JS_PATH_SRC -type f -name '*.js' | sort | xargs cat | terser -c -m > ${JS_
 # -c，即 --compress，用于启用压缩功能。它会对 JavaScript 代码进行各种优化，例如删除无用的空格、注释、重复的代码等，以减小文件大小。
 # -m，即 --mangle，用于启用混淆功能。它会对 JavaScript 代码中的变量和函数名进行简化和混淆，以减小可读性。
 
-# echo yes | python3 manage.py collectstatic
+echo yes | python manage.py collectstatic
