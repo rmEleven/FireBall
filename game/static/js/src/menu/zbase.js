@@ -19,7 +19,6 @@ class GameMenu {
                 </div>
             </div>
         `);
-        this.hide();  // 暂时隐藏菜单界面
         this.root.$game.append(this.$menu);  // 把menu前端添加到game前端
 
         this.$single_mode = this.$menu.find('.game-menu-field-item-single-mode');  // 找到single-mode按钮

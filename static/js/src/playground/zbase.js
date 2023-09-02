@@ -8,7 +8,22 @@ class GamePlayground {
             <div class="game-playground">
             </div>
         `);
-        //this.hide();  // 隐藏playground页面
+        this.hide();  // 隐藏playground页面
+
+        this.start();
+    }
+
+    start() {
+        this.add_listening_events();
+    }
+
+    add_listening_events() {
+        ;
+    }
+
+    show() {
+        this.$playground.show();  // 显示playground页面
+
         this.root.$game.append(this.$playground);  // 把playground前端添加到game前端
 
         // 记录游戏界面长和宽
@@ -29,21 +44,6 @@ class GamePlayground {
             let color_index = Math.floor(Math.random() * robot_color.length);  // 随机颜色下标
             this.players.push(new Player(this, x, y, this.height * 0.05, robot_color[color_index], this.height * 0.15, false));  // 创建机器人
         }
-
-        this.start();
-    }
-
-    start() {
-        this.add_listening_events();
-    }
-
-    add_listening_events() {
-        ;
-    }
-
-    show() {
-        // 显示playground页面
-        this.$playground.show();
     }
 
     hide() {
