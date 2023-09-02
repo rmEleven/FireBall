@@ -64,7 +64,7 @@ python3 manage.py createsuperuser 创建管理员用户
 
 在 `http://8.130.68.215:8000/admin/` 页面进行登录和访问
 
-### 项目结构
+## 项目结构
 
 ```
 ├── db.sqlite3  # SQLite数据库文件，用于存储应用程序的数据。
@@ -93,3 +93,83 @@ python3 manage.py createsuperuser 创建管理员用户
 └── README.md        # 项目的说明文档，通常包含项目的介绍、安装说明和其他相关信息。
 ```
 
+## 部署
+
+### 部署 nginx
+
+#### 1. 安装 nginx
+
+sudo apt install nginx
+
+#### 2. 配置文件
+
+需要获取域名、nginx配置文件及https证书
+
+将nginx.conf中的内容写入服务器/etc/nginx/nginx.conf文件中。如果django项目路径与配置文件中不同，注意修改路径。
+
+将acapp.key中的内容写入服务器/etc/nginx/cert/acapp.key文件中。
+
+将acapp.pem中的内容写入服务器/etc/nginx/cert/acapp.pem文件中。
+
+#### 3. 启动 nginx 服务
+
+sudo /etc/init.d/nginx start
+
+#### 4. 检查 nginx 服务的状态
+
+sudo systemctl status nginx
+
+#### 5. 重启 nginx 服务
+
+在 /var/log/nginx/error.log 文件内查看问题
+
+在 /etc/nginx/nginx.conf 文件内修改问题
+
+sudo nginx -s reload 重启服务
+
+### 修改 django 项目配置 
+
+打开 `settings.py` 文件：
+
+将分配的域名添加到 `ALLOWED_HOSTS` 列表中。注意只需要添加 `https://`` 后面的部分。
+
+令 `DEBUG = False`
+
+归档 `static` 文件：`python3 manage.py collectstatic`
+
+### 配置 uwsgi
+
+#### 1. 安装 uwsgi
+
+sudo apt install uwsgi
+
+uwsgi --version
+
+#### 2. 安装适用于选择的语言的插件
+
+查看列表中的插件包名称，找到适合您的语言的包名称
+
+apt-cache search uwsgi-plugin
+
+安装合适的语言的包
+
+sudo apt install uwsgi-plugin-python3
+
+#### 3. 添加 uwsgi 的配置文件
+
+scripts/uwsgi.ini
+
+```
+[uwsgi]
+socket          = 127.0.0.1:8000
+chdir           = /home/eleven/djangoenv/FireBall
+wsgi-file       = FireBall/wsgi.py
+master          = true
+processes       = 2
+threads         = 5
+vacuum          = true
+```
+
+#### 4. 启动 uwsgi 并加载插件
+
+uwsgi --plugin python3 --ini scripts/uwsgi.ini
