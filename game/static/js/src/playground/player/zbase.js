@@ -47,11 +47,12 @@ class Player extends GameObject {
         });
 
         this.playground.gameMap.$canvas.mousedown(function (e) {
+            const rect = outer.ctx.canvas.getBoundingClientRect();  // 坐标系映射
             if (e.which === 3) {  // 点击鼠标右键
-                outer.move_to(e.clientX, e.clientY);  // 移动到点击的位置
+                outer.move_to(e.clientX - rect.left, e.clientY - rect.top);  // 移动到点击的位置
             } else if (e.which === 1) {  // 点击鼠标左键
                 if (outer.cur_skill === "fireball") {  // 当前技能是火球
-                    outer.shoot_fireball(e.clientX, e.clientY);  // 发射火球
+                    outer.shoot_fireball(e.clientX - rect.left, e.clientY - rect.top);  // 发射火球
                 }
 
                 outer.cur_skill = null;  // 清空技能选择
