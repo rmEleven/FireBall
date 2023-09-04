@@ -27,6 +27,11 @@ class Player extends GameObject {
 
         this.is_me = is_me;     // 是否是玩家本人
         this.eps = 0.1;         // 小于误差视作0
+
+        if (this.is_me) {  // 当前玩家的头像
+            this.img = new Image();
+            this.img.src = this.playground.root.settings.photo;
+        }
     }
 
     start() {
@@ -179,11 +184,21 @@ class Player extends GameObject {
     }
 
     render() {  // 渲染玩家
-        this.ctx.fillStyle = this.color;  // 设置颜色
-
-        this.ctx.beginPath();
-        this.ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);  // 渲染圆形
-        this.ctx.fill();  // 填充颜色
+        if (this.is_me) {
+            this.ctx.save();
+            this.ctx.beginPath();
+            this.ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);  // 渲染圆形
+            this.ctx.stroke();
+            this.ctx.clip();
+            this.ctx.drawImage(this.img, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
+            this.ctx.restore();
+        }
+        else {
+            this.ctx.fillStyle = this.color;  // 设置颜色
+            this.ctx.beginPath();
+            this.ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);  // 渲染圆形
+            this.ctx.fill();  // 填充颜色
+        }
     }
 
     on_deatroy() {  // 玩家被击杀后 从玩家数组中删除
