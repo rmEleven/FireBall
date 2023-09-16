@@ -18,17 +18,17 @@ class Settings {
                     <br>
 
                     <div class="game-settings-field">
-                        <div class="game-settings-item">
+                        <div class="game-settings-item game-settings-item-username">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
                                 <path
                                 d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" />
                             </svg>
-                            <input type="text" class="game-settings-input" placeholder="学工号" id="username" />
+                            <input type="text" class="game-settings-input" placeholder="账号" id="username" />
                         </div>
                     </div>
 
                     <div class="game-settings-field">
-                        <div class="game-settings-item">
+                        <div class="game-settings-item game-settings-item-password">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
                                 <path
                                 d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
@@ -37,20 +37,68 @@ class Settings {
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-success">登录</button>
-
-                    <p class="text">注册账号</p>
+                    <div class="game-settings-error-message"></div>
+                    <button type="submit" class="game-settings-submit">登录</button>
+                    <p class="game-settings-text">注册账号</p>
                 </div>
 
                 <div class="game-settings-register">
+                    <br>
+
+                    <div class="game-settings-field">
+                        <div class="game-settings-item game-settings-item-username">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                <path
+                                d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" />
+                            </svg>
+                            <input type="text" class="game-settings-input" placeholder="账号" id="username" />
+                        </div>
+                    </div>
+
+                    <div class="game-settings-field">
+                        <div class="game-settings-item game-settings-item-password">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+                                <path
+                                d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
+                            </svg>
+                            <input type="password" class="game-settings-input" placeholder="密码" id="password" />
+                        </div>
+                    </div>
+
+                    <div class="game-settings-field">
+                        <div class="game-settings-item game-settings-item-repassword">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+                                <path
+                                d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
+                            </svg>
+                            <input type="password" class="game-settings-input" placeholder="确认密码" id="repassword" />
+                        </div>
+                    </div>
+
+                    <div class="game-settings-error-message"></div>
+                    <button type="submit" class="game-settings-submit">注册</button>
+                    <p class="game-settings-text">登录账号</p>
                 </div>
 
             </div>
         `);
         this.$login = this.$settings.find(".game-settings-login");        // 找出login部分
+        this.$login_username = this.$login.find(".game-settings-item-username>input");
+        this.$login_password = this.$login.find(".game-settings-item-password>input");
+        this.$login_error_messgae = this.$login.find(".game-settings-error-message");
+        this.$login_submit = this.$login.find(".game-settings-submit");
+        this.$login_to_register = this.$login.find(".game-settings-text");
         this.$login.hide();
+
         this.$register = this.$settings.find(".game-settings-register");  // 找出register部分
+        this.$register_username = this.$register.find(".game-settings-item-username>input");
+        this.$register_password = this.$register.find(".game-settings-item-password>input");
+        this.$register_repassword = this.$register.find(".game-settings-item-repassword>input");
+        this.$register_error_messgae = this.$register.find(".game-settings-error-message");
+        this.$register_submit = this.$register.find(".game-settings-submit");
+        this.$register_to_login = this.$register.find(".game-settings-text");
         this.$register.hide();
+
         this.root.$game.append(this.$settings);                           // 把settings前端添加到game前端
 
         this.start();
@@ -58,6 +106,26 @@ class Settings {
 
     start() {
         this.getinfo();  // 从服务器端获取信息
+        this.add_listening_events();  // 添加事件监听函数
+    }
+
+    add_listening_events() {
+        this.add_listening_events_login();  // 添加登录界面的事件监听函数
+        this.add_listening_events_register();  // 添加注册界面的事件监听函数
+    }
+
+    add_listening_events_login() {
+        let outer = this;
+        this.$login_to_register.click(function () {
+            outer.register();
+        });
+    }
+
+    add_listening_events_register() {
+        let outer = this;
+        this.$register_to_login.click(function () {
+            outer.login();
+        });
     }
 
     login() {  // 打开登录界面
@@ -89,6 +157,7 @@ class Settings {
                     outer.root.menu.show();          // 显示菜单界面
                 } else {  // 服务器返回失败：未登录
                     outer.login();  // 调用登录函数
+                    //outer.register();
                 }
             }
         });

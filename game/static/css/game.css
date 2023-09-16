@@ -25,24 +25,22 @@
 }
 
 .game-settings-register {
-    height: 40%;
+    height: 50%;
     width: 20%;
-    padding: 5%;
 
     position: relative;
-    top: 30%;
-    left: 50%;
+    top: 25%;
+    left: 60%;
 
-    border-radius: 20px;
-    border-width: 3px;
-    border-color: rgb(99, 110, 115);
+    border-radius: 10px;
 
-    background-color: rgb(228, 220, 220);
+    background-color: rgb(244, 237, 228);
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .game-settings-field {
     display: block;
-    height: 20%;
+    height: 8vh;
 }
 
 .game-settings-item {
@@ -84,7 +82,13 @@
     box-shadow: none;
 }
 
-button {
+.game-settings-error-message {
+    color: red;
+    position: absolute;
+    left: 15%;
+}
+
+.game-settings-submit {
     width: 70%;
     line-height: 5vh;
 
@@ -101,15 +105,16 @@ button {
     font-weight: bold;
     color: white;
 
+    cursor: pointer;
     background-color: rgb(25, 135, 84);
 }
 
-button:hover {
+.game-settings-submit:hover {
     transform: scale(1.1);
     transition: 1000ms;
 }
 
-.text {
+.game-settings-text {
     position: absolute;
     bottom: 2vh;
     right: 2vw;
@@ -118,7 +123,7 @@ button:hover {
     color: rgb(99, 110, 115);
 }
 
-.text:hover {
+.game-settings-text:hover {
     transform: scale(1.1);
     transition: 1000ms;
 }
