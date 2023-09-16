@@ -159,7 +159,20 @@ class Settings {
     }
 
     logout_on_remote() {  // 在服务器上退出
-        ;
+        if (this.platform === "ACAPP")
+            return false;
+        $.ajax({
+            url: 'https://app5952.acapp.acwing.com.cn/settings/logout/',
+            type: 'GET',
+            success: function (resp) {
+                // resp: views/settings/logout signout(request)函数 返回的数据
+                console.log(resp);
+                if (resp.result === 'success') {     // 服务器返回成功
+                    console.log("刷新");
+                    location.reload();
+                }
+            }
+        });
     }
 
     register_on_remote() {  // 在服务器上注册
