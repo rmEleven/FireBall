@@ -3,9 +3,9 @@
     height: 100%;
 
     background-image: url("/static/image/menu/background.svg");
-    background-size: auto 100%;
+    background-size: auto 80%;
     background-repeat: no-repeat;
-    background-position: 10vw center;
+    background-position: 15vw center;
 
     user-select: none;
 }
@@ -16,7 +16,7 @@
 
     position: relative;
     top: 30%;
-    left: 60%;
+    left: 55%;
 
     border-radius: 10px;
 
@@ -30,7 +30,7 @@
 
     position: relative;
     top: 25%;
-    left: 60%;
+    left: 55%;
 
     border-radius: 10px;
 
@@ -133,9 +133,9 @@
     height: 100%;
 
     background-image: url("/static/image/menu/background.svg");
-    background-size: auto 100%;
+    background-size: auto 80%;
     background-repeat: no-repeat;
-    background-position: 10vw center;
+    background-position: 15vw center;
 
     user-select: none;
 }
@@ -146,7 +146,7 @@
 
     position: relative;
     top: 30%;
-    left: 60%;
+    left: 55%;
 
     border-radius: 10px;
 
