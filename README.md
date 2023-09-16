@@ -1,56 +1,60 @@
 # FireBall
 
-## 基本操作
+## 一、基本操作
 
 ### 配置环境
 
 #### 1. 安装 python3
 
-sudo apt update
+`sudo apt update`
 
-sudo apt install python3
+`sudo apt install python3`
 
-python3 --version
+`python3 --version`
 
 #### 2. 创建、激活、停用虚拟环境
 
-sudo apt install virtualenv
+`sudo apt install virtualenv`
 
-virtualenv djangoenv
+`virtualenv djangoenv`
 
-source djangoenv/bin/activate
+`source djangoenv/bin/activate`
 
-deactivate
+`deactivate`
 
 #### 3. 安装 django
 
-pip install django
+`pip install django`
 
-django-admin --version
+`django-admin --version`
 
 ### 运行项目
 
 #### 1. 创建 django 项目
 
-django-admin startproject FireBall
+`django-admin startproject FireBall`
 
 创建一个名为 `FireBall` 的 Django 项目
 
 #### 2. 创建应用程序
 
-python3 manage.py startapp game
+`python3 manage.py startapp game`
 
 创建一个名为 `game` 的应用程序
 
 #### 3. 定义模型
 
-python manage.py makemigrations 创建数据库表
+`python manage.py makemigrations`
 
-python manage.py migrate 进行数据库迁移
+创建数据库表
+
+`python manage.py migrate`
+
+进行数据库迁移
 
 #### 4. 运行开发服务器
 
-python3 manage.py runserver 0.0.0.0:8000
+`python3 manage.py runserver 0.0.0.0:8000`
 
 在 `FireBall/settings.py` 文件的 `ALLOWED_HOSTS` 里添加 `"8.130.68.215"`
 
@@ -60,11 +64,13 @@ python3 manage.py runserver 0.0.0.0:8000
 
 #### 5. 访问管理员页面
 
-python3 manage.py createsuperuser 创建管理员用户
+`python3 manage.py createsuperuser`
+
+创建管理员用户
 
 在 `http://8.130.68.215:8000/admin/` 页面进行登录和访问
 
-## 项目结构
+## 二、项目结构
 
 ```
 ├── db.sqlite3  # SQLite数据库文件，用于存储应用程序的数据。
@@ -93,45 +99,45 @@ python3 manage.py createsuperuser 创建管理员用户
 └── README.md        # 项目的说明文档，通常包含项目的介绍、安装说明和其他相关信息。
 ```
 
-## 部署
+## 三、部署
 
 ### 部署 nginx
 
 #### 1. 安装 nginx
 
-sudo apt install nginx
+`sudo apt install nginx`
 
 #### 2. 配置文件
 
-需要获取域名、nginx配置文件及https证书
+需要获取 域名、nginx配置文件 及 https证书
 
-将nginx.conf中的内容写入服务器/etc/nginx/nginx.conf文件中。如果django项目路径与配置文件中不同，注意修改路径。
+将 `nginx.conf` 中的内容写入服务器 `/etc/nginx/nginx.conf` 文件中。
 
-将acapp.key中的内容写入服务器/etc/nginx/cert/acapp.key文件中。
+将 `acapp.key` 中的内容写入服务器 `/etc/nginx/cert/acapp.key` 文件中。
 
-将acapp.pem中的内容写入服务器/etc/nginx/cert/acapp.pem文件中。
+将 `acapp.pem` 中的内容写入服务器 `/etc/nginx/cert/acapp.pem` 文件中。
 
 #### 3. 启动 nginx 服务
 
-sudo /etc/init.d/nginx start
+`sudo /etc/init.d/nginx start`
 
 #### 4. 检查 nginx 服务的状态
 
-sudo systemctl status nginx
+`sudo systemctl status nginx`
 
 #### 5. 重启 nginx 服务
 
-在 /var/log/nginx/error.log 文件内查看问题
+在 `/var/log/nginx/error.log` 文件内查看问题
 
-在 /etc/nginx/nginx.conf 文件内修改问题
+在 `/etc/nginx/nginx.conf` 文件内修改问题
 
-sudo nginx -s reload 重启服务
+`sudo nginx -s reload` 重启服务
 
 ### 修改 django 项目配置 
 
 打开 `settings.py` 文件：
 
-将分配的域名添加到 `ALLOWED_HOSTS` 列表中。注意只需要添加 `https://`` 后面的部分。
+将分配的域名添加到 `ALLOWED_HOSTS` 列表中。注意只需要添加 `https://` 后面的部分。
 
 令 `DEBUG = False`
 
@@ -141,23 +147,23 @@ sudo nginx -s reload 重启服务
 
 #### 1. 安装 uwsgi
 
-sudo apt install uwsgi
+`sudo apt install uwsgi`
 
-uwsgi --version
+`uwsgi --version`
 
 #### 2. 安装适用于选择的语言的插件
 
 查看列表中的插件包名称，找到适合您的语言的包名称
 
-apt-cache search uwsgi-plugin
+`apt-cache search uwsgi-plugin`
 
 安装合适的语言的包
 
-sudo apt install uwsgi-plugin-python3
+`sudo apt install uwsgi-plugin-python3`
 
 #### 3. 添加 uwsgi 的配置文件
 
-scripts/uwsgi.ini
+`scripts/uwsgi.ini`
 
 ```
 [uwsgi]
@@ -172,4 +178,75 @@ vacuum          = true
 
 #### 4. 启动 uwsgi 并加载插件
 
-uwsgi --plugin python3 --ini scripts/uwsgi.ini
+`uwsgi --plugin python3 --ini scripts/uwsgi.ini`
+
+## 四、拓展操作
+
+### 集成 Redis
+
+#### 0. 介绍
+
+Redis（Remote Dictionary Server）是一个开源的内存数据存储系统，也被称为键值存储数据库。它提供了一个高性能、持久化的数据结构服务器，可用作数据库、缓存和消息中间件。
+
+以下是 Redis 的一些主要特点：
+
+1. 内存存储：Redis 将数据存储在内存中，因此非常快速。它通过将数据保持在内存中，以实现低延迟的读写操作。
+
+2. 数据结构多样性：Redis 支持多种数据结构，包括字符串（Strings）、哈希（Hashes）、列表（Lists）、集合（Sets）和有序集合（Sorted Sets）。这使得 Redis 可以灵活地存储和操作不同类型的数据。
+
+3. 持久化：Redis 可以将数据持久化到磁盘中，以防止数据丢失。它提供了两种持久化方式：RDB（Redis Database）快照和 AOF（Append-Only File）日志。RDB 快照是将数据以二进制格式保存在磁盘上，而 AOF 日志则是将操作日志追加到文件中。
+
+4. 高性能：由于 Redis 将数据存储在内存中，并使用了一些优化策略，如异步操作和非阻塞 I/O，它能够提供非常高的读写性能和吞吐量。
+
+5. 分布式支持：Redis 提供了一些分布式功能，如主从复制和分片（Sharding），使得它可以在多台服务器上进行数据复制和分布式存储，以实现高可用性和扩展性。
+
+6. 支持丰富的功能：Redis 还提供了一些其他功能，如事务支持、发布订阅（Pub/Sub）消息模式、Lua 脚本执行、过期键管理等。
+
+Redis 被广泛应用于许多场景，如缓存、会话存储、排行榜、计数器、实时消息传递等。它易于使用，具有高性能和灵活的数据结构，使得它成为许多应用程序的首选数据存储解决方案之一。
+
+#### 1. 安装 Redis 和 django_redis
+
+`sudo apt update`
+
+`sudo apt install redis-server`
+
+`redis-server --version`
+
+`pip install django-redis`
+
+#### 2. 配置 settings.py
+
+```python
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+    },
+}
+USER_AGENTS_CACHE = 'default'
+```
+
+#### 3. 启动 redis-server
+
+`sudo redis-server /etc/redis/redis.conf`
+
+#### 4. 基本用法
+
+`from django.core.cache import cache`
+
+`cache.keys('*')`
+
+`cache.set('wh', 1, 3)`
+
+`cache.set('wh', 1, None)`
+
+`cache.has_key('wh')`
+
+`cache.get('wh')`
+
+`cache.delete('wh')`
+
+### 数据库迁移 slite -> mysql
