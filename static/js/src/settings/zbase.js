@@ -116,7 +116,10 @@ class Settings {
 
     add_listening_events_login() {
         let outer = this;
-        this.$login_to_register.click(function () {
+        this.$login_submit.click(function () {  // 点击提交按钮触发登录
+            outer.login_on_remote();
+        })
+        this.$login_to_register.click(function () {  // 点击切换文本触发切换
             outer.register();
         });
     }
@@ -126,6 +129,41 @@ class Settings {
         this.$register_to_login.click(function () {
             outer.login();
         });
+    }
+
+    login_on_remote() {  // 在服务器上登录
+        let username = this.$login_username.val();
+        let password = this.$login_password.val();
+        this.$login_error_messgae.empty();
+
+        let outer = this;
+        $.ajax({
+            url: 'https://app5952.acapp.acwing.com.cn/settings/login/',
+            type: 'GET',
+            data: {
+                // data: views/settings/login signin(request)函数 输入的数据
+                username: username,
+                password: password,
+            },
+            success: function (resp) {
+                // resp: views/settings/login signin(request)函数 返回的数据
+                console.log(resp);
+                if (resp.result === 'success') {     // 服务器返回成功
+                    console.log("刷新");
+                    location.reload();
+                } else {  // 服务器返回失败：用户名或密码不正确
+                    outer.$login_error_messgae.html(resp.result);
+                }
+            }
+        });
+    }
+
+    logout_on_remote() {  // 在服务器上退出
+        ;
+    }
+
+    register_on_remote() {  // 在服务器上注册
+        ;
     }
 
     login() {  // 打开登录界面
