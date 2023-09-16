@@ -126,7 +126,10 @@ class Settings {
 
     add_listening_events_register() {
         let outer = this;
-        this.$register_to_login.click(function () {
+        this.$register_submit.click(function () {  // 点击提交按钮触发注册
+            outer.register_on_remote();
+        })
+        this.$register_to_login.click(function () {  // 点击切换文本触发切换
             outer.login();
         });
     }
@@ -176,7 +179,32 @@ class Settings {
     }
 
     register_on_remote() {  // 在服务器上注册
-        ;
+        let username = this.$register_username.val();
+        let password = this.$register_password.val();
+        let repassword = this.$register_repassword.val();
+        this.$register_error_messgae.empty();
+
+        let outer = this;
+        $.ajax({
+            url: 'https://app5952.acapp.acwing.com.cn/settings/register/',
+            type: 'GET',
+            data: {
+                // data: views/settings/register register(request)函数 输入的数据
+                username: username,
+                password: password,
+                repassword: repassword,
+            },
+            success: function (resp) {
+                // resp: views/settings/register register(request)函数 返回的数据
+                console.log(resp);
+                if (resp.result === 'success') {     // 服务器返回成功
+                    console.log("刷新");
+                    location.reload();
+                } else {  // 服务器返回失败：错误信息
+                    outer.$register_error_messgae.html(resp.result);
+                }
+            }
+        });
     }
 
     login() {  // 打开登录界面
