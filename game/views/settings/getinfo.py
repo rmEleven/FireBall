@@ -9,7 +9,7 @@ def getinfo_acapp(request):
             'result': '未登录',
         })
     else:  # 已登录
-        player = Player.objects.all()[0]  # 获取第一个用户
+        player = Player.objects.get(user=user)  # 获取当前登录用户
         return JsonResponse({
             'result': 'success',
             'username': player.user.username,
@@ -23,7 +23,7 @@ def getinfo_web(request):
             'result': '未登录',
         })
     else:  # 已登录
-        player = Player.objects.all()[0]  # 获取第一个用户
+        player = Player.objects.get(user=user)  # 获取当前登录用户
         return JsonResponse({
             'result': 'success',
             'username': player.user.username,
