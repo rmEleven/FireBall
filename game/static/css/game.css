@@ -5,7 +5,7 @@
     background-image: url("/static/image/menu/background.svg");
     background-size: auto 100%;
     background-repeat: no-repeat;
-    background-position: left center;
+    background-position: 10vw center;
 
     user-select: none;
 }
@@ -135,7 +135,7 @@
     background-image: url("/static/image/menu/background.svg");
     background-size: auto 100%;
     background-repeat: no-repeat;
-    background-position: right center;
+    background-position: 10vw center;
 
     user-select: none;
 }
@@ -146,31 +146,35 @@
 
     position: relative;
     top: 30%;
-    left: 10%;
+    left: 60%;
+
+    border-radius: 10px;
+
+    background-color: rgb(244, 237, 228);
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .game-menu-field-item {
-    height: 20%;
-    width: 80%;
-
-    padding: 5%;
-    margin: 10%;
-
-    box-sizing: border-box;
+    width: 60%;
+    height: 6vh;
+    margin-top: 2vh;
+    margin-bottom: 4vh;
+    margin-left: 20%;
+    margin-right: 20%;
 
     /* 文字水平、垂直居中 */
     display: flex;
     align-items: center;
     justify-content: center;
 
-    color: rgb(66, 133, 244);
-    font-size: 100%;
+    font-size: 3vh;
     font-weight: bold;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.2em;
+    color: rgb(99, 110, 115);
 
     cursor: pointer;
-    border-radius: 3em;
-    background-color: rgb(185, 213, 230);
+    border-radius: 10px;
+    background-color: rgb(227, 227, 227);
 }
 
 .game-menu-field-item:hover {

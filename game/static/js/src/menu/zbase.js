@@ -7,6 +7,7 @@ class GameMenu {
         this.$menu = $(`
             <div class="game-menu">
                 <div class="game-menu-field">
+                    <br>
                     <div class="game-menu-field-item game-menu-field-item-single-mode">
                         单人模式
                     </div>
