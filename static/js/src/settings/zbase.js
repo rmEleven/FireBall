@@ -88,7 +88,7 @@ class Settings {
                         <img class="game-setting-qq-img" width="30" src="https://app5952.acapp.acwing.com.cn/static/image/settings/qq.png">
                         <p class="game-setting-qq-text">一键登录</p>
                     </div>
-                    
+
                     <p class="game-settings-text">登录账号</p>
                 </div>
 
@@ -111,6 +111,8 @@ class Settings {
         this.$register_to_login = this.$register.find(".game-settings-text");
         this.$register.hide();
 
+        this.$qq_login = this.$settings.find(".game-setting-qq-img");  // 找出qq一键登录的图片
+
         this.root.$game.append(this.$settings);                           // 把settings前端添加到game前端
 
         this.start();
@@ -124,6 +126,12 @@ class Settings {
     add_listening_events() {
         this.add_listening_events_login();  // 添加登录界面的事件监听函数
         this.add_listening_events_register();  // 添加注册界面的事件监听函数
+
+        // 添加qq一键登录的事件监听函数
+        let outer = this;
+        this.$qq_login.click(function () {  // 点击qq一键登录触发qq登录
+            outer.qq_login();
+        });
     }
 
     add_listening_events_login() {
@@ -143,6 +151,20 @@ class Settings {
         })
         this.$register_to_login.click(function () {  // 点击切换文本触发切换
             outer.login();
+        });
+    }
+
+    qq_login() {
+        $.ajax({
+            url: 'https://app5952.acapp.acwing.com.cn/settings/qq/apply_code/',
+            type: 'GET',
+            success: function (resp) {
+                // resp: views/settings/qq/apply_code apply_code(request) 返回的数据
+                console.log(resp);
+                if (resp.result === 'success') {
+                    // window.location.replace(resp.apply_code_url);
+                }
+            }
         });
     }
 
