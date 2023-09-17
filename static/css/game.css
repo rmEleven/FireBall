@@ -169,11 +169,11 @@
 }
 
 .game-menu-field {
-    height: 40%;
+    height: 50%;
     width: 20%;
 
     position: relative;
-    top: 30%;
+    top: 25%;
     left: 55%;
 
     border-radius: 10px;
@@ -208,6 +208,15 @@
 .game-menu-field-item:hover {
     transform: scale(1.1);
     transition: 500ms;
+}
+
+.game-menu-field-text {
+    text-align: center;
+    font-weight: bold;
+    font-size: 2vh;
+    color: rgb(66, 133, 244);
+
+    margin: 1vh;
 }
 
 .game-playground {

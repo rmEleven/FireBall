@@ -17,6 +17,15 @@ class GameMenu {
                     <div class="game-menu-field-item game-menu-field-item-settings">
                         退出
                     </div>
+                    <div class="game-menu-field-text">
+                        鼠标右键移动
+                    </div>
+                    <div class="game-menu-field-text">
+                        Q键选中技能
+                    </div>
+                    <div class="game-menu-field-text">
+                        鼠标左键释放技能
+                    </div>
                 </div>
             </div>
         `);
