@@ -11,11 +11,11 @@
 }
 
 .game-settings-login {
-    height: 40%;
+    height: 50%;
     width: 20%;
 
     position: relative;
-    top: 30%;
+    top: 25%;
     left: 55%;
 
     border-radius: 10px;
@@ -25,11 +25,11 @@
 }
 
 .game-settings-register {
-    height: 50%;
+    height: 60%;
     width: 20%;
 
     position: relative;
-    top: 25%;
+    top: 20%;
     left: 55%;
 
     border-radius: 10px;
@@ -88,6 +88,34 @@
     left: 15%;
 }
 
+.game-setting-qq-field {
+    width: 70%;
+    line-height: 5vh;
+
+    position: absolute;
+    margin: 0 auto;
+
+    bottom: 8vh;
+    left: 15%;
+
+    text-align: center;
+}
+
+.game-setting-qq-img {
+    width: 35px;
+    height: 35px;
+
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.game-setting-qq-text {
+    margin: 0;
+    padding: 0;
+    font-size: 2vh;
+    color: rgb(99, 110, 115);
+}
+
 .game-settings-submit {
     width: 70%;
     line-height: 5vh;
@@ -95,7 +123,7 @@
     position: absolute;
     margin: 0 auto;
 
-    bottom: 10vh;
+    bottom: 20vh;
     left: 15%;
 
     border-width: 0vh;
@@ -116,7 +144,7 @@
 
 .game-settings-text {
     position: absolute;
-    bottom: 2vh;
+    bottom: 1vh;
     right: 2vw;
     font-weight: bold;
     cursor: pointer;

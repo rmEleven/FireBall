@@ -23,7 +23,7 @@ class Settings {
                                 <path
                                 d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" />
                             </svg>
-                            <input type="text" class="game-settings-input" placeholder="账号" id="username" />
+                            <input type="text" class="game-settings-input" placeholder="用户名" id="username" />
                         </div>
                     </div>
 
@@ -39,6 +39,12 @@ class Settings {
 
                     <div class="game-settings-error-message"></div>
                     <button type="submit" class="game-settings-submit">登录</button>
+
+                    <div class="game-setting-qq-field">
+                        <img class="game-setting-qq-img" width="30" src="https://app5952.acapp.acwing.com.cn/static/image/settings/qq.png">
+                        <p class="game-setting-qq-text">一键登录</p>
+                    </div>
+
                     <p class="game-settings-text">注册账号</p>
                 </div>
 
@@ -51,7 +57,7 @@ class Settings {
                                 <path
                                 d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" />
                             </svg>
-                            <input type="text" class="game-settings-input" placeholder="账号" id="username" />
+                            <input type="text" class="game-settings-input" placeholder="用户名" id="username" />
                         </div>
                     </div>
 
@@ -77,6 +83,12 @@ class Settings {
 
                     <div class="game-settings-error-message"></div>
                     <button type="submit" class="game-settings-submit">注册</button>
+
+                    <div class="game-setting-qq-field">
+                        <img class="game-setting-qq-img" width="30" src="https://app5952.acapp.acwing.com.cn/static/image/settings/qq.png">
+                        <p class="game-setting-qq-text">一键登录</p>
+                    </div>
+                    
                     <p class="game-settings-text">登录账号</p>
                 </div>
 
